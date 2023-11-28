@@ -15,7 +15,7 @@ class AlgoritmoGenetico ():
             self.melhor_solucao = self.populacao[0]
 
     def ordena_populacao(self):
-        self.populacao = sorted( self.populacao, key = lambda populacao : populacao.nota_avaliacao ,reverse = True)
+        self.populacao = sorted(self.populacao, key=lambda populacao : populacao.nota_avaliacao, reverse=True)
     
     def melhor_individuo( self, individuo ):
         if individuo.nota_avaliacao > self.melhor_solucao.nota_avaliacao:
@@ -33,16 +33,16 @@ class AlgoritmoGenetico ():
             soma_volume += individuo.espaco_usado
         return soma_volume
     
-    def seleciona_pais(self):
-        pais = []
-        for _ in range(2):
-            pai = None
-            soma_avaliacao = self.soma_avaliacoes()
-            valor_sorteado = random.uniform(0, soma_avaliacao)
-            soma = 0
+    def selecionar_pais(self):
+        pais = [] # Cria uma lista vazia para armazenar os pais selecionados
+        for i in range(2): # Itera duas vezes para selecionar dois pais
+            pai = None # Inicializa a variável de pai selecionado
+            soma_avaliacao = self.soma_avaliacoes() # Calcula a soma total das avaliações da população
+            valor_aleatorio = random.uniform(0, soma_avaliacao) # Gera um valor aleatório dentro da faixa da soma total das avaliações
+            soma_total = 0
             for individuo in self.populacao:
-                soma += individuo.nota_avaliacao
-                if soma > valor_sorteado:
+                soma_total += individuo.nota_avaliacao
+                if soma_total > valor_aleatorio:
                     pai = individuo
                     break
             pais.append(pai)
