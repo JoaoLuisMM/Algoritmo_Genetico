@@ -3,12 +3,14 @@ from Parametros import Parametros as config
 
 class Individuo ():
     def __init__ ( self , espacos , valores ,limite_espacos , geracao=0, cromossomos=None):
-        self.espacos = espacos
-        self.valores = valores
-        self.limite_espacos = limite_espacos
-        self.geracao = geracao
-        self.espaco_usado = 0
+        self.espacos = espacos # Lista com o espaço ocupado por cada item
+        self.valores = valores # Lista com o valor de cada item
+        self.limite_espacos = limite_espacos # Limite de espaço da mochila
+        self.geracao = geracao # Geração atual do indivíduo
+        self.espaco_usado = 0 # Espaço usado pelo indivíduo na mochila
+        # Lista de 0s e 1s que representa a combinação de itens escolhidos pelo indivíduo
         self.cromossomo = cromossomos if cromossomos else self.gerar_novo_cromossomo(len(espacos))
+        # Nota de avaliação do indivíduo, que é calculada pela função avaliacao()
         self.nota_avaliacao = self.avaliacao()
     
     # Função para gerar um novo cromossomo
@@ -25,13 +27,15 @@ class Individuo ():
     
 
     # Função para avaliar o cromossomo
+    # A nota de avaliação é calculada somando o valor dos itens que estão na mochila,
+    # considerando o limite de espaço da mochila.
     def avaliacao(self):
         # Inicializa variáveis
         nota = 0 
         self.espaco_usado = 0
         for i,item in enumerate(self.cromossomo): # Itera sobre o cromossomo usando enumerate para obter o indice e o valor
             if item == 1:
-                # Adicionar o valor e o espaço usado ao total
+                # Adiciona o valor e o espaço usado ao total
                 nota += self.valores[i] 
                 self.espaco_usado += self.espacos[i]
         if self.espaco_usado > self.limite_espacos: # Verifica se ultrapassou o limite de espacos
@@ -40,6 +44,7 @@ class Individuo ():
             return nota 
     
     
+    # Realiza o cruzamento entre o indivíduo e outro indivíduo
     def crossover( self ,outro_individuo ):
         # Cria um corte aleatório
         corte = round(random.random() * len(self.cromossomo))
@@ -64,7 +69,6 @@ class Individuo ():
     
 
     def __str__(self) -> str:
-        # Converte a lista do cromossomo para uma string
         cromossomo_str = str(self.cromossomo)
         return cromossomo_str
     

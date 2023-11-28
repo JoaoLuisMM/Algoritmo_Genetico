@@ -57,6 +57,9 @@ algoritmo_generico.inicializa_populacao(espacos,valores,params.limite_espaco_moc
 
 melhores_resultados = []
 
+
+# Utilizado para pegar o melhor indivíduo da última geração e 
+# adicioná-lo à lista de melhores resultados
 for i in range(params.numero_geracao):
 
     # Ordena a população com base nas pontuações de avaliação
